@@ -45,6 +45,8 @@ InfiniteScroll.create.history = function() {
   link.href = this.getAbsolutePath();
   // MS Edge does not have origin on link https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/12236493/
   var linkOrigin = link.origin || link.protocol + '//' + link.host;
+  // Fix history not working on IE11
+  linkOrigin = linkOrigin.replace(/:(\d+)/, '');  
   var isSameOrigin = linkOrigin == location.origin;
   if ( !isSameOrigin ) {
     console.error( '[InfiniteScroll] cannot set history with different origin: ' +
